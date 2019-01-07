@@ -1047,4 +1047,5 @@ erpnext.TransactionController = erpnext.taxes_and_totals.extend({
 
 		return method
 	},
+	
 });

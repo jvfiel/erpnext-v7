@@ -37,8 +37,16 @@ class JournalEntry(AccountsController):
 		self.validate_credit_debit_note()
 		self.validate_empty_accounts_table()
 		self.set_account_and_party_balance()
+		self.clear_zero_debit_credit_row()
 		if not self.title:
 			self.title = self.get_title()
+			
+	def clear_zero_debit_credit_row(self):
+		self.accounts = [account for account in self.accounts 
+			if not (account.debit_in_account_currency==0.0 and account.credit_in_account_currency==0.0)]
+
+		if not self.accounts:
+			frappe.throw("Debit or Credit amount is not found in account table")
 
 	def on_submit(self):
 		self.check_credit_limit()
@@ -404,7 +412,7 @@ class JournalEntry(AccountsController):
 
 		gl_map = []
 		for d in self.get("accounts"):
-			#if d.debit or d.credit:
+			if d.debit or d.credit:
 				gl_map.append(
 					self.get_gl_dict({
 						"account": d.account,
@@ -425,7 +433,7 @@ class JournalEntry(AccountsController):
 				)
 
 		if gl_map:
-			make_gl_entries(gl_map, cancel=cancel, adv_adj=adv_adj, merge_entries=False)
+			make_gl_entries(gl_map, cancel=cancel, adv_adj=adv_adj)
 
 	def get_balance(self):
 		if not self.get('accounts'):
