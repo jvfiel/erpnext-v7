@@ -216,7 +216,8 @@ def create_email_digest():
 				"name": "Default Weekly Digest - " + company,
 				"company": company,
 				"frequency": "Weekly",
-				"recipient_list": "\n".join(system_managers)
+				"recipient_list": "\n".join(system_managers),
+				"description":"Description Here"
 			})
 
 			for df in edigest.meta.get("fields", {"fieldtype": "Check"}):
