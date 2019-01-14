@@ -217,7 +217,7 @@ def create_email_digest():
 				"company": company,
 				"frequency": "Weekly",
 				"recipient_list": "\n".join(system_managers),
-				"description":"Description Here"
+				"description":"Description Here - " + company
 			})
 
 			for df in edigest.meta.get("fields", {"fieldtype": "Check"}):
@@ -236,7 +236,7 @@ def create_email_digest():
 			"recipient_list": "\n".join(system_managers),
 			"scheduler_errors": 1,
 			"enabled": 1,
-			"description": "Description Here"
+			"description": "Description Here -" + companies[0]
 		})
 		edigest.insert()
 
