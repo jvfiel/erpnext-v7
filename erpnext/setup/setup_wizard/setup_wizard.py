@@ -235,7 +235,8 @@ def create_email_digest():
 			"frequency": "Daily",
 			"recipient_list": "\n".join(system_managers),
 			"scheduler_errors": 1,
-			"enabled": 1
+			"enabled": 1,
+			"description": "Description Here"
 		})
 		edigest.insert()
 
